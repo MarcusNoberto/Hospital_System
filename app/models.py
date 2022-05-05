@@ -14,11 +14,11 @@ departamentos=[
 
 
 class Doctor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.Cascade)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pic/DoctorProfilePic/', null=True, blank=True)
     adress = models.CharField(max_length=100)
     mobile = models.CharField(max_length=20, null= True)
-    department = models.CharField(max_length=50, choices=departments, default='Cirurgião')
+    department = models.CharField(max_length=50, choices=departamentos, default='Cirurgião')
     status = models.BooleanField(default=False)
 
     @property
@@ -53,5 +53,33 @@ class Patient(models.Model):
 
     def __str__(self):
         return self.user.first_name + " (" + self.symptoms + ")"
+
+class Appointment(models.Model):
+    patientId = models.PositiveIntegerField(null=True)
+    doctorId = models.PositiveIntegerField(null=True)
+    patientName = models.CharField(max_length=50, null=True)
+    doctorName = models.CharField(max_length=50, null=True)
+    appointmentDate = models.DateField(auto_now=True)
+    description = models.TextField(max_length=500)
+    status = models.BooleanField(default=False)
+
+class PatientDischargeDetails(models.Model):
+    patientId = models.PositiveIntegerField(null=True)
+    patientName = models.CharField(max_length=50)
+    assignedDoctorName = models.CharField(max_length=50)
+    adress = models.CharField(max_length=50)
+    mobile = models.CharField(max_length=20)
+    symptons = models.CharField(max_length=200, null=True)
+
+    admitDate = models.DateField(null=False)
+    releaseDate = models.DateField(null=False)
+    daySpent = models.PositiveIntegerField(null = False)
+
+    roomCharge = models.PositiveIntegerField(null=False)
+    medicineCost = models.PositiveIntegerField(null=False)
+    doctorFee = models.PositiveIntegerField(null=False)
+    OtherCharges = models.PositiveIntegerField(null=False)
+    total = models.PositiveIntegerField(default=0)
+
 
 
