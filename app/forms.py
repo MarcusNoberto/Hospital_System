@@ -1,8 +1,6 @@
 from django import forms
-
-from django.contrib.auth import User
-
-from .app import models
+from django.contrib.auth.models import User
+from . import models
 
 #Admin signup
 class AdminSignupForm(forms.ModelForm):
