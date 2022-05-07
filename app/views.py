@@ -85,3 +85,11 @@ def patient_signup_view(request):
         return HttpResponseRedirect('patientLogin')
     return render(request,'hospital/patientsignup.html',context=mydict)
 
+def is_admin(user):
+    return user.groups.filter(name='ADMIN').exists()
+def is_doctor(user):
+    return user.groups.filter(name='DOCTOR').exists()
+def is_patient(user):
+    return user.groups.filter(name='PATIENT').exists()
+
+
