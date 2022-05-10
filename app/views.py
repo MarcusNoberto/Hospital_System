@@ -320,3 +320,107 @@ def reject_patient_view(request,pk):
     user.delete()
     patient.delete()
     return redirect('admin-approve-patient')
+
+#-------------------- FOR DISCHARGING PATIENT BY ADMIN START-------------------------
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def admin_discharge_patient_view(request):
+    patients = models.Patient.objects.all().filter(status=True)
+    return render(request, 'Hospital/admin_discharge_patient.html',{'patients': patients})
+
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def discharge_patient_view(request, pk):
+    patient = models.Patient.objects.get(id = pk)
+    days = (date.today()-patient.admitDate)
+    assigned_Doctor = models.User.objects.all().filter(id = patient.assignedDoctorId)
+    d = days.days
+    patientDict = {
+        'patientId': pk,
+        'name': patient.get_name,
+        'mobile': patient.mobile,
+        'address': patient.address,
+        'symptoms': patient.symptoms,
+        'admitDate': patient.admitDate,
+        'todayDate': date.today(),
+        'day': d,
+        'assignedDoctorName': assignedDoctor[0].first_name,
+    }
+    if request.method == 'POST':
+        feeDict = {
+            'roomCharge':int(request.POST['roomCharge'])*int(d),
+            'doctorFee':request.POST['doctorFee'],
+            'medicineCost' : request.POST['medicineCost'],
+            'OtherCharge' : request.POST['OtherCharge'],
+            'total':(int(request.POST['roomCharge'])*int(d))+int(request.POST['doctorFee'])+int(request.POST['medicineCost'])+int(request.POST['OtherCharge'])
+        }
+        pDD = models.PatientDischargeDetails()
+        pDD.patientId = pk
+        pDD.patientName = patient.get_name
+        pDD.assignedDoctorName = assignedDoctor[0].first_name
+        pDD.address = patient.address
+        pDD.mobile = patient.mobile
+        pDD.symptoms = patient.symptoms
+        pDD.admitDate = patient.admitDate
+        pDD.releaseDate = date.today()
+        pDD.daySpent = int(d)
+        pDD.medicineCost = int(request.POST['medicineCost'])
+        pDD.roomCharge = int(request.POST['roomCharge']) * int(d)
+        pDD.doctorFee = int(request.POST['doctorFee'])
+        pDD.OtherCharge = int(request.POST['OtherCharge'])
+        pDD.total = (int(request.POST['roomCharge']) * int(d)) + int(request.POST['doctorFee']) + int(
+            request.POST['medicineCost']) + int(request.POST['OtherCharge'])
+        pDD.save()
+        return render(request, 'hospital/patient_final_bill.html', context=patientDict)
+    return render(request, 'hospital/patient_generate_bill.html', context=patientDict)
+
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+#for discharge patient bill (pdf) download and printing
+import io
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.template import Context
+from django.http import HttpResponse
+
+
+def render_to_pdf(template_src, context_dict):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = io.BytesIO()
+    pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
+def download_pdf_view(request,pk):
+    dischargeDetails=models.PatientDischargeDetails.objects.all().filter(patientId=pk).order_by('-id')[:1]
+    dict={
+        'patientName':dischargeDetails[0].patientName,
+        'assignedDoctorName':dischargeDetails[0].assignedDoctorName,
+        'address':dischargeDetails[0].address,
+        'mobile':dischargeDetails[0].mobile,
+        'symptoms':dischargeDetails[0].symptoms,
+        'admitDate':dischargeDetails[0].admitDate,
+        'releaseDate':dischargeDetails[0].releaseDate,
+        'daySpent':dischargeDetails[0].daySpent,
+        'medicineCost':dischargeDetails[0].medicineCost,
+        'roomCharge':dischargeDetails[0].roomCharge,
+        'doctorFee':dischargeDetails[0].doctorFee,
+        'OtherCharge':dischargeDetails[0].OtherCharge,
+        'total':dischargeDetails[0].total,
+    }
+    return render_to_pdf('hospital/download_bill.html',dict)
+
+#--------------Apointment Start----------------
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def admin_appointment_view(request):
+    return render(request,'Hospital/admin_appointment.html')
+
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def admin_view_appointment_view(request):
+    appointments = models.Appointment.objects.all().filter(status = True)
+    return render(request, 'Hospital/')
+
