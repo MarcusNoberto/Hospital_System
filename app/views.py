@@ -568,4 +568,7 @@ def delete_appointment_view(request,pk):
     appointments=zip(appointments,patients)
     return render(request,'hospital/doctor_delete_appointment.html',{'appointments':appointments,'doctor':doctor})
 
+#---------------------------------------------------------------------------------
+#------------------------ DOCTOR RELATED VIEWS END ------------------------------
+#---------------------------------------------------------------------------------
 
