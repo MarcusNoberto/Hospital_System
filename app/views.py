@@ -566,9 +566,190 @@ def delete_appointment_view(request,pk):
         patientid.append(a.patientId)
     patients=models.Patient.objects.all().filter(status=True,user_id__in=patientid)
     appointments=zip(appointments,patients)
-    return render(request,'hospital/doctor_delete_appointment.html',{'appointments':appointments,'doctor':doctor})
+    return render(request,'Hospital/doctor_delete_appointment.html',{'appointments':appointments,'doctor':doctor})
 
 #---------------------------------------------------------------------------------
-#------------------------ DOCTOR RELATED VIEWS END ------------------------------
+#------------------------ DOCTOR RELATED VIEWS END -------------------------------
 #---------------------------------------------------------------------------------
 
+#---------------------------------------------------------------------------------
+#------------------------ PATIENT RELATED VIEWS START ----------------------------
+#---------------------------------------------------------------------------------
+
+@login_required(login_url='patientlogin')
+@user_passes_test(is_patient)
+def patient_dashboard_view(request):
+    patient = models.Patient.objects.get(user_id = request.user.id)
+    doctor = models.Doctor.objects.get(user_id = patient.assignedDoctorId)
+    mydict = {
+        'patient': patient,
+        'doctorName': doctor.get_name,
+        'doctorMobile': doctor.mobile,
+        'doctorAddress': doctor.address,
+        'symptoms': patient.symptoms,
+        'doctorDepartment': doctor.department,
+        'admitDate': patient.admitDate,
+    }
+    return render(request, 'Hospital/patient_dashboard.html', context=mydict)
+
+@login_required(login_url='patientlogin')
+@user_passes_test(is_patient)
+def patient_appointment_view(request):
+    patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
+    return render(request,'hospital/patient_appointment.html',{'patient':patient})
+
+
+@login_required(login_url='patientlogin')
+@user_passes_test(is_patient)
+def patient_book_appointment_view(request):
+    appointment_form = forms.PatientAppointmentForm()
+    patient = models.Patient.objects.get(user_id = request.user.id)
+    message = None
+    mydict = {'appointmentForm': appointmentForm, 'patient': patient, 'message': message}
+    if request.method == "POST":
+        appointmentForm = forms.PatientAppointmentForm(request.POST)
+        if appointmentForm.is_valid():
+            print(request.POST.get('doctorId'))
+            desc = request.POST.get('description')
+
+            doctor = models.Doctor.objects.get(user_id=request.POST.get('doctorId'))
+
+            if doctor.department == 'Cardiologista':
+                if 'coracao' in desc:
+                    pass
+                else:
+                    print('else')
+                    message = "Por favor escolha uma área baseada no seu problema"
+                    return render(request, 'hospital/patient_book_appointment.html',
+                                  {'appointmentForm': appointmentForm, 'patient': patient, 'message': message})
+
+            if doctor.department == 'Dermatologista':
+                if 'pele' in desc:
+                    pass
+                else:
+                    print('else')
+                    message = "Por favor escolha uma área baseada no seu problema"
+                    return render(request, 'hospital/patient_book_appointment.html',
+                                  {'appointmentForm': appointmentForm, 'patient': patient, 'message': message})
+
+            if doctor.department == 'Especialista em emergencia':
+                if 'febre' in desc:
+                    pass
+                else:
+                    print('else')
+                    message = "Por favor, escolha uma área baseada no seu problema"
+                    return render(request, 'hospital/patient_book_appointment.html',
+                                  {'appointmentForm': appointmentForm, 'patient': patient, 'message': message})
+
+            if doctor.department == 'Imunologistas':
+                if 'alergia' in desc:
+                    pass
+                else:
+                    print('else')
+                    message = "Por favor, escolha uma área baseada no seu problema"
+                    return render(request, 'hospital/patient_book_appointment.html',
+                                  {'appointmentForm': appointmentForm, 'patient': patient, 'message': message})
+
+            if doctor.department == 'Anesteologistas':
+                if 'cirurgia' in desc:
+                    pass
+                else:
+                    print('else')
+                    message = "Por favor, escolha uma área baseada no seu problema"
+                    return render(request, 'hospital/patient_book_appointment.html',
+                                  {'appointmentForm': appointmentForm, 'patient': patient, 'message': message})
+
+            if doctor.department == 'Cirurgião':
+                if 'cancer' in desc:
+                    pass
+                else:
+                    print('else')
+                    message = "Por favor, escolha uma área baseada no seu problema"
+                    return render(request, 'hospital/patient_book_appointment.html',
+                                  {'appointmentForm': appointmentForm, 'patient': patient, 'message': message})
+            appointment = appointmentForm.save(commit=False)
+            appointment.doctorId = request.POST.get('doctorId')
+            appointment.patientId = request.user.id  # ----user can choose any patient but only their info will be stored
+            appointment.doctorName = models.User.objects.get(id=request.POST.get('doctorId')).first_name
+            appointment.patientName = request.user.first_name  # ----user can choose any patient but only their info will be stored
+            appointment.status = False
+            appointment.save()
+        return HttpResponseRedirect('patient-view-appointment')
+        return render(request, 'hospital/patient_book_appointment.html', context=mydict)
+
+@login_required(login_url='patientlogin')
+@user_passes_test(is_patient)
+def patient_view_appointment_view(request):
+    patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
+    appointments=models.Appointment.objects.all().filter(patientId=request.user.id)
+    return render(request,'hospital/patient_view_appointment.html',{'appointments':appointments,'patient':patient})
+
+
+
+@login_required(login_url='patientlogin')
+@user_passes_test(is_patient)
+def patient_discharge_view(request):
+    patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
+    dischargeDetails=models.PatientDischargeDetails.objects.all().filter(patientId=patient.id).order_by('-id')[:1]
+    patientDict=None
+    if dischargeDetails:
+        patientDict ={
+        'is_discharged':True,
+        'patient':patient,
+        'patientId':patient.id,
+        'patientName':patient.get_name,
+        'assignedDoctorName':dischargeDetails[0].assignedDoctorName,
+        'address':patient.address,
+        'mobile':patient.mobile,
+        'symptoms':patient.symptoms,
+        'admitDate':patient.admitDate,
+        'releaseDate':dischargeDetails[0].releaseDate,
+        'daySpent':dischargeDetails[0].daySpent,
+        'medicineCost':dischargeDetails[0].medicineCost,
+        'roomCharge':dischargeDetails[0].roomCharge,
+        'doctorFee':dischargeDetails[0].doctorFee,
+        'OtherCharge':dischargeDetails[0].OtherCharge,
+        'total':dischargeDetails[0].total,
+        }
+        print(patientDict)
+    else:
+        patientDict={
+            'is_discharged':False,
+            'patient':patient,
+            'patientId':request.user.id,
+        }
+    return render(request,'hospital/patient_discharge.html',context=patientDict)
+
+
+#------------------------ PATIENT RELATED VIEWS END ------------------------------
+#---------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+#---------------------------------------------------------------------------------
+#------------------------ ABOUT US AND CONTACT US VIEWS START ------------------------------
+#---------------------------------------------------------------------------------
+def aboutus_view(request):
+    return render(request,'hospital/aboutus.html')
+
+def contactus_view(request):
+    sub = forms.ContactusForm()
+    if request.method == 'POST':
+        sub = forms.ContactusForm(request.POST)
+        if sub.is_valid():
+            email = sub.cleaned_data['Email']
+            name=sub.cleaned_data['Name']
+            message = sub.cleaned_data['Message']
+            send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
+            return render(request, 'hospital/contactussuccess.html')
+    return render(request, 'hospital/contactus.html', {'form':sub})
+
+
+#---------------------------------------------------------------------------------
+#------------------------ ADMIN RELATED VIEWS END ------------------------------
+#---------------------------------------------------------------------------------
