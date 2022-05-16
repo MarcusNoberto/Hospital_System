@@ -3,83 +3,80 @@ from django.contrib.auth.models import User
 
 
 
-departamentos=[
-('Cardiologista','Cardiologista'),
-('Dermatologista','Dermatologista'),
-('Especialista em emergencia','Especialista em emergencia'),
-('Imunologistas','Imunologistas'),
-('Anesteologistas','Anesteologistas'),
-('Cirurgião','Cirurgião')
+departments=[('Cardiologist','Cardiologist'),
+('Dermatologists','Dermatologists'),
+('Emergency Medicine Specialists','Emergency Medicine Specialists'),
+('Allergists/Immunologists','Allergists/Immunologists'),
+('Anesthesiologists','Anesthesiologists'),
+('Colon and Rectal Surgeons','Colon and Rectal Surgeons')
 ]
-
-
 class Doctor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to='profile_pic/DoctorProfilePic/', null=True, blank=True)
-    address = models.CharField(max_length=100)
-    mobile = models.CharField(max_length=20, null= True)
-    department = models.CharField(max_length=50, choices=departamentos, default='Cirurgião')
-    status = models.BooleanField(default=False)
-
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    profile_pic= models.ImageField(upload_to='profile_pic/DoctorProfilePic/',null=True,blank=True)
+    address = models.CharField(max_length=40)
+    mobile = models.CharField(max_length=20,null=True)
+    department= models.CharField(max_length=50,choices=departments,default='Cardiologist')
+    status=models.BooleanField(default=False)
     @property
     def get_name(self):
-        return self.user.first_name + " " + self.user.last_name
-
+        return self.user.first_name+" "+self.user.last_name
     @property
     def get_id(self):
         return self.user.id
-
     def __str__(self):
-        return "{} ({})".format(self.user.first_name, self.department)
+        return "{} ({})".format(self.user.first_name,self.department)
+
+
 
 class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to='profile_pic/PatientProfilePic/', null=True, blank=True)
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    profile_pic= models.ImageField(upload_to='profile_pic/PatientProfilePic/',null=True,blank=True)
     address = models.CharField(max_length=40)
-    mobile = models.CharField(max_length=20, null=False)
-
-    symptoms = models.CharField(max_length=200, null=False)
+    mobile = models.CharField(max_length=20,null=False)
+    symptoms = models.CharField(max_length=100,null=False)
     assignedDoctorId = models.PositiveIntegerField(null=True)
-    admitDate = models.DateField(auto_now=True)
-    status = models.BooleanField(default=False)
-
+    admitDate=models.DateField(auto_now=True)
+    status=models.BooleanField(default=False)
     @property
     def get_name(self):
-        return self.user.first_name + " " + self.user.last_name
-
+        return self.user.first_name+" "+self.user.last_name
     @property
     def get_id(self):
         return self.user.id
-
     def __str__(self):
-        return self.user.first_name + " (" + self.symptoms + ")"
+        return self.user.first_name+" ("+self.symptoms+")"
+
 
 class Appointment(models.Model):
-    patientId = models.PositiveIntegerField(null=True)
-    doctorId = models.PositiveIntegerField(null=True)
-    patientName = models.CharField(max_length=50, null=True)
-    doctorName = models.CharField(max_length=50, null=True)
-    appointmentDate = models.DateField(auto_now=True)
-    description = models.TextField(max_length=500)
-    status = models.BooleanField(default=False)
+    patientId=models.PositiveIntegerField(null=True)
+    doctorId=models.PositiveIntegerField(null=True)
+    patientName=models.CharField(max_length=40,null=True)
+    doctorName=models.CharField(max_length=40,null=True)
+    appointmentDate=models.DateField(auto_now=True)
+    description=models.TextField(max_length=500)
+    status=models.BooleanField(default=False)
+
+
 
 class PatientDischargeDetails(models.Model):
-    patientId = models.PositiveIntegerField(null=True)
-    patientName = models.CharField(max_length=50)
-    assignedDoctorName = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
-    mobile = models.CharField(max_length=20)
-    symptons = models.CharField(max_length=200, null=True)
+    patientId=models.PositiveIntegerField(null=True)
+    patientName=models.CharField(max_length=40)
+    assignedDoctorName=models.CharField(max_length=40)
+    address = models.CharField(max_length=40)
+    mobile = models.CharField(max_length=20,null=True)
+    symptoms = models.CharField(max_length=100,null=True)
 
-    admitDate = models.DateField(null=False)
-    releaseDate = models.DateField(null=False)
-    daySpent = models.PositiveIntegerField(null = False)
+    admitDate=models.DateField(null=False)
+    releaseDate=models.DateField(null=False)
+    daySpent=models.PositiveIntegerField(null=False)
 
-    roomCharge = models.PositiveIntegerField(null=False)
-    medicineCost = models.PositiveIntegerField(null=False)
-    doctorFee = models.PositiveIntegerField(null=False)
-    OtherCharges = models.PositiveIntegerField(null=False)
-    total = models.PositiveIntegerField(default=0)
+    roomCharge=models.PositiveIntegerField(null=False)
+    medicineCost=models.PositiveIntegerField(null=False)
+    doctorFee=models.PositiveIntegerField(null=False)
+    OtherCharge=models.PositiveIntegerField(null=False)
+    total=models.PositiveIntegerField(null=False)
 
 
-
+#Developed By : sumit kumar
+#facebook : fb.com/sumit.luv
+#Youtube :youtube.com/lazycoders
