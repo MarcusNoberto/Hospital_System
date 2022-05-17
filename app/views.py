@@ -16,21 +16,21 @@ def home_view(request):
     return render(request, 'hospital/index.html')
 
 
-# for showing signup/login button for admin(by sumit)
+# for showing signup/login button for admin
 def adminclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
     return render(request, 'hospital/adminclick.html')
 
 
-# for showing signup/login button for doctor(by sumit)
+# for showing signup/login button for doctor
 def doctorclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
     return render(request, 'hospital/doctorclick.html')
 
 
-# for showing signup/login button for patient(by sumit)
+# for showing signup/login button for patient
 def patientclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
@@ -92,7 +92,7 @@ def patient_signup_view(request):
     return render(request, 'hospital/patientsignup.html', context=mydict)
 
 
-# -----------for checking user is doctor , patient or admin(by sumit)
+# -----------for checking user is doctor , patient or admin
 def is_admin(user):
     return user.groups.filter(name='ADMIN').exists()
 
@@ -108,6 +108,7 @@ def is_patient(user):
 # ---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT
 def afterlogin_view(request):
     if is_admin(request.user):
+        print('entrou aqui')
         return redirect('admin-dashboard')
     elif is_doctor(request.user):
         accountapproval = models.Doctor.objects.all().filter(user_id=request.user.id, status=True)
@@ -424,7 +425,7 @@ def discharge_patient_view(request, pk):
     return render(request, 'hospital/patient_generate_bill.html', context=patientDict)
 
 
-# --------------for discharge patient bill (pdf) download and printing
+# --------------for discharge patient bill (pdf) download and printing-----------------------
 import io
 from xhtml2pdf import pisa
 from django.template.loader import get_template
@@ -813,6 +814,3 @@ def contactus_view(request):
 # ---------------------------------------------------------------------------------
 
 
-# Developed By : sumit kumar
-# facebook : fb.com/sumit.luv
-# Youtube :youtube.com/lazycoders
