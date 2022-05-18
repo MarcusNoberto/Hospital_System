@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>A simple, clean, and responsive HTML invoice template</title>
+  <title>Um simples sistema simples com django</title>
 
   <style>
     .invoice-box {
@@ -113,14 +113,14 @@
         <table>
           <tr>
             <td class="title">
-              <h1>Hospital Management</h1>
+              <h1>Sistema Hospitalar</h1>
             </td>
 
             <td>
 
-              Admit Date: {{admitDate}}<br>
-              Release Date: {{todayDate}}<br>
-              Days Spent: {{day}}
+              Data de entrada: {{admitDate}}<br>
+              Data de saída: {{todayDate}}<br>
+              Dias: {{day}}
             </td>
           </tr>
         </table>
@@ -132,13 +132,13 @@
         <table>
           <tr>
             <td>
-              Patient Name : {{name}}<br>
-              Patient Contact : {{mobile}}<br>
-              Patient Addres : {{address}}<br>
+              Nome do paciente : {{name}}<br>
+              Contato do paciente : {{mobile}}<br>
+              Endereço do paciente : {{address}}<br>
             </td>
 
             <td>
-              Doctor Name :<br>
+              Medico :<br>
               {{assignedDoctorName}}<br>
 
             </td>
@@ -149,7 +149,7 @@
 
     <tr class="heading">
       <td>
-        Disease and Symptoms
+        Sintomas e doenças
       </td>
       <td>
 
@@ -168,61 +168,58 @@
       </td>
 
       <td>
-        Price
+        Preço
       </td>
     </tr>
-    <form method="post">
-      {% csrf_token %}
 
-      <tr class="item">
-        <td>
-          Room Charge (Per Day)
-        </td>
+    <tr class="item">
+      <td>
+        Diaria de {{daySpent}} dias
+      </td>
 
-        <td>
-          <input type="number" name="roomCharge" placeholder="In Dollars" value="">
-        </td>
-      </tr>
+      <td>
+        {{roomCharge}}
+      </td>
+    </tr>
 
-      <tr class="item">
-        <td>
-          Doctor Fee
-        </td>
+    <tr class="item">
+      <td>
+        Diaria médica
+      </td>
 
-        <td>
-          <input type="number" name="doctorFee" placeholder="In Dollars" value="">
-        </td>
-      </tr>
+      <td>
+        {{doctorFee}}
+      </td>
+    </tr>
 
-      <tr class="item">
-        <td>
-          Medicine Cost
-        </td>
+    <tr class="item">
+      <td>
+        Custos médicos
+      </td>
 
-        <td>
-          <input type="number" name="medicineCost" placeholder="In Dollars" value="">
-        </td>
-      </tr>
+      <td>
+        {{medicineCost}}
+      </td>
+    </tr>
 
-      <tr class="item last">
-        <td>
-          Other Charge
-        </td>
+    <tr class="item last">
+      <td>
+        Outros custos
+      </td>
 
-        <td>
-          <input type="number" name="OtherCharge" placeholder="In Dollars" value="">
-        </td>
-      </tr>
+      <td>
+        {{OtherCharge}}
+      </td>
+    </tr>
 
-      <tr class="total">
-        <td></td>
+    <tr class="total">
+      <td></td>
 
-        <td>
-          <input type="submit" name="submit" value="Generate Bill">
-        </td>
-      </tr>
+      <td>
+        Total : {{total}}
+      </td>
+    </tr>
 
-    </form>
   </table>
 </div>
 

@@ -48,49 +48,49 @@
 
 </head>
 <br><br><br>
-<!------ signup page for doctor by admin(sumit)  ---------->
+<!------ signup page for doctor by admin ---------->
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>Admit Patient To Hospital</p>
+        <p>Aceitar paciente no hospital</p>
       </div>
       <div class="form-content">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+              {% render_field userForm.first_name class="form-control" placeholder="Nome" %}
             </div>
             <div class="form-group">
               {% render_field userForm.username class="form-control" placeholder="Username" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.address class="form-control" placeholder="Address" %}
+              {% render_field patientForm.address class="form-control" placeholder="Endereço" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.symptoms class="form-control" placeholder="Symptoms" %}
+              {% render_field patientForm.symptoms class="form-control" placeholder="Sintomas" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.profile_pic required="required" class="form-control" placeholder="Profile Picture" %}
+              {% render_field patientForm.profile_pic required="required" class="form-control" placeholder="Foto" %}
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+              {% render_field userForm.last_name class="form-control" placeholder="Sobrenome" %}
             </div>
             <div class="form-group">
-              {% render_field userForm.password class="form-control" placeholder="Password" %}
+              {% render_field userForm.password class="form-control" placeholder="Senha" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.mobile  class="form-control" placeholder="Contact" %}
+              {% render_field patientForm.mobile  class="form-control" placeholder="Contato" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.assignedDoctorId class="form-control" placeholder="Doctor" %}
+              {% render_field patientForm.assignedDoctorId class="form-control" placeholder="Doutor" %}
             </div>
           </div>
         </div>
-        <button type="submit" class="btnSubmit">Admit</button>
+        <button type="submit" class="btnSubmit">Adicionar</button>
       </div>
     </div>
   </div>

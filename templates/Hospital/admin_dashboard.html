@@ -8,14 +8,14 @@
   <div class="row">
     <div class="panel panel-primary col-md-5" style="margin-left:2%;">
       <div class="panel-heading" style="text-align:center;">
-        <h6 class="panel-title">Recent Doctors</h6>
+        <h6 class="panel-title">Médicos Recentes</h6>
       </div>
       <table class="table table-hover table-striped" id="dev-table">
         <thead class="thead-dark">
           <tr>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Contact</th>
+            <th>Nome</th>
+            <th>Departamento</th>
+            <th>Contato</th>
             <th>Status</th>
 
           </tr>
@@ -26,9 +26,9 @@
           <td>{{d.department}}</td>
           <td>{{d.mobile}}</td>
           {%if d.status%}
-          <td> <span class="label label-primary">Permanent</span></td>
+          <td> <span class="label label-primary">Permanente</span></td>
           {% else %}
-          <td> <span class="label label-success">On Hold</span></td>
+          <td> <span class="label label-success">Em espera</span></td>
           {% endif %}
 
         </tr>
@@ -38,15 +38,15 @@
 
     <div class="panel panel-primary col-md-5" style="margin-left:5%;">
       <div class="panel-heading" style="text-align:center;">
-        <h6 class="panel-title">Recent Patient</h6>
+        <h6 class="panel-title">Pacientes Recentes</h6>
       </div>
       <table class="table table-hover table-striped" id="dev-table">
         <thead class="thead-dark">
           <tr>
-            <th>Name</th>
-            <th>Symptoms</th>
-            <th>Contact</th>
-            <th>Address</th>
+            <th>Nome</th>
+            <th>Sintomas</th>
+            <th>Contato</th>
+            <th>Endereço</th>
             <th>Status</th>
 
           </tr>
@@ -58,9 +58,9 @@
           <td>{{p.mobile}}</td>
           <td>{{p.address}}</td>
           {%if p.status%}
-          <td> <span class="label label-primary">Admitted</span></td>
+          <td> <span class="label label-primary">Aprovados</span></td>
           {% else %}
-          <td> <span class="label label-success">On Hold</span></td>
+          <td> <span class="label label-success">Em espera</span></td>
           {% endif %}
 
         </tr>

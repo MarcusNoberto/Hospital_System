@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>HMS - Django</title>
+  <title>Sistema Hospitalar</title>
   <style type="text/css">
     body {
       color: #aa082e;
@@ -67,14 +67,14 @@
     <div class="container register-form">
       <div class="form">
         <div class="note">
-          <p>Add New Admin To Hospital</p>
+          <p>Adicionar novo administrador ao sistema</p>
         </div>
 
         <div class="form-content">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                {% render_field form.first_name class="form-control" placeholder="First Name" %}
+                {% render_field form.first_name class="form-control" placeholder="Nome" %}
               </div>
               <div class="form-group">
                 {% render_field form.username class="form-control" placeholder="Username" %}
@@ -83,16 +83,16 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                {% render_field form.last_name class="form-control" placeholder="Last Name" %}
+                {% render_field form.last_name class="form-control" placeholder="Sobrenome" %}
               </div>
               <div class="form-group">
-                {% render_field form.password class="form-control" placeholder="Password" %}
+                {% render_field form.password class="form-control" placeholder="Senha" %}
               </div>
 
             </div>
           </div>
-          <button type="submit" class="btnSubmit">Submit</button>
-          <div class="text-center">Already have an account? <a href="adminlogin">Login here</a></div>
+          <button type="submit" class="btnSubmit">Enviar</button>
+          <div class="text-center">Já tem uma conta? <a href="adminlogin">Login here</a></div>
         </div>
       </div>
     </div>

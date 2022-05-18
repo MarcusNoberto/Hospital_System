@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>A simple, clean, and responsive HTML invoice template</title>
+  <title>Um simples sistema hospitalar com django</title>
 
   <style>
     .invoice-box {
@@ -120,14 +120,14 @@
         <table>
           <tr>
             <td class="title">
-              <h1>Hospital Management</h1>
+              <h1>Sistema Hospitalar</h1>
             </td>
 
             <td>
 
-              Admit Date: {{admitDate}}<br>
-              Release Date: {{releaseDate}}<br>
-              Days Spent: {{daySpent}}
+              Data de entrada: {{admitDate}}<br>
+              Data de saída: {{releaseDate}}<br>
+              Dias: {{daySpent}}
             </td>
           </tr>
         </table>
@@ -139,13 +139,13 @@
         <table>
           <tr>
             <td>
-              Patient Name : {{patientName}}<br>
-              Patient Contact : {{mobile}}<br>
-              Patient Addres : {{address}}<br>
+              Nome do paciente : {{patientName}}<br>
+              Contato do paciente : {{mobile}}<br>
+              Endereço do paciente : {{address}}<br>
             </td>
 
             <td>
-              Doctor Name :<br>
+              medico :<br>
               {{assignedDoctorName}}<br>
 
             </td>
@@ -156,7 +156,7 @@
 
     <tr class="heading">
       <td>
-        Disease and Symptoms
+        Sintomas e doenças
       </td>
       <td>
 
@@ -175,13 +175,13 @@
       </td>
 
       <td>
-        Price
+        Preço
       </td>
     </tr>
 
     <tr class="item">
       <td>
-        Room Charge of {{daySpent}} Days
+        Diaria de {{daySpent}} dias
       </td>
 
       <td>
@@ -191,7 +191,7 @@
 
     <tr class="item">
       <td>
-        Doctor Fee
+        Diaria médica
       </td>
 
       <td>
@@ -201,7 +201,7 @@
 
     <tr class="item">
       <td>
-        Medicine Cost
+        Custos médicos
       </td>
 
       <td>
@@ -211,7 +211,7 @@
 
     <tr class="item last">
       <td>
-        Other Charge
+        Outros custos
       </td>
 
       <td>
@@ -237,9 +237,9 @@
 
 
 {%else%}
-<h5 style="text-align:center;">You Are Not Discharged By Hospital !</h5>
+<h5 style="text-align:center;">Voce não foi eliminado do hospital</h5>
 <br><br>
-<h6 style="text-align:center;">You Can Download Invoice after getting discharged.</h6>
+<h6 style="text-align:center;">Voce pode fazer o download da sua conta.</h6>
 {%endif%}
 
 <br><br><br><br><br><br><br><br>

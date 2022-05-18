@@ -122,13 +122,13 @@
           <table>
             <tr>
               <td class="title">
-                <h5>Hospital Management</h5>
+                <h5>Sistema Hospitalar</h5>
               </td>
 
               <td>
 
-                Admit Date: {{admitDate}}<br>
-                Release Date: {{releaseDate}}<br>
+                Data de entrada: {{admitDate}}<br>
+                Data de liberação: {{releaseDate}}<br>
                 Days Spent: {{daySpent}}
               </td>
             </tr>
@@ -141,13 +141,13 @@
           <table>
             <tr>
               <td>
-                Patient Name : {{patientName}}<br>
-                Patient Contact : {{mobile}}<br>
-                Patient Addres : {{address}}<br>
+                Nome do paciente : {{patientName}}<br>
+                Contato do paciente : {{mobile}}<br>
+                Endereço do paciente : {{address}}<br>
               </td>
 
               <td>
-                Doctor Name :<br>
+                Medico :<br>
                 {{assignedDoctorName}}<br>
 
               </td>
@@ -162,8 +162,8 @@
           <table>
             <tr>
               <td>
-                Disease and Symptoms :<br>
-                &nbsp &nbsp &nbsp &nbsp &nbsp {{symptoms}}
+                Sintomas e doenças :<br>
+                {{symptoms}}
               </td>
 
             </tr>
@@ -178,12 +178,13 @@
           <table>
             <tr>
               <td>
-                Charges :<br><br>
-                Room Charge of {{daySpent}} Days : {{roomCharge}}<br>
-                Doctor Fee : {{doctorFee}}<br>
-                Medicine Cost : {{medicineCost}}<br>
-                Other Charge : {{OtherCharge}} <br><br>
-                &nbsp &nbsp &nbsp &nbsp &nbsp Total : {{total}}
+                Conta :<br><br>
+                Diaria de {{daySpent}} <br>
+                  Days : {{roomCharge}}<br>
+                Diaria médica : {{doctorFee}}<br>
+                Custos médicos : {{medicineCost}}<br>
+                outros custos : {{OtherCharge}} <br><br>
+                Total : {{total}}
               </td>
             </tr>
           </table>
