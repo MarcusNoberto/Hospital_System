@@ -35,9 +35,15 @@
        Social section
     -----------------------------------------*/
     footer {
-      padding: 0px 0px 0px 0px;
-      background-color: black;
-      margin: 0px;
+        border-top: 1px solid #333;
+        background-color: #bbccdd;
+        bottom: 0;
+        left: 0;
+        height: 60px;
+        position: fixed;
+        width: 100%;
+        color: #006b1b;
+
     }
 
 
@@ -286,10 +292,10 @@
       <h2>{{request.user.first_name}}</h2>
     </header>
     <ul>
-      <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/admin-dashboard"><span>Dashboard</span></a> </li>
-      <li tabindex="0" class="icon-customers"> <a style="color:white; text-decoration:none;" href="/admin-doctor"><span>Doctor</span></a></li>
-      <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/admin-patient"><span>Patient</span></a></li>
-      <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/admin-appointment"><span>Appointment</span></a></li>
+      <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/admin-dashboard"><span>Gerenciamento</span></a> </li>
+      <li tabindex="0" class="icon-customers"> <a style="color:white; text-decoration:none;" href="/admin-doctor"><span>Medicos</span></a></li>
+      <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/admin-patient"><span>Pacientes</span></a></li>
+      <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/admin-appointment"><span>Agendamentos</span></a></li>
     </ul>
   </nav>
 
@@ -332,7 +338,7 @@
         <div class="row">
           <div class="col-md-12 col-sm-12">
             <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
-              <p>
+              <p style="text-align: center">
                 Copyright &copy; 2022 Desenvolvido por Marcus Noberto </p>
             </div>
           </div>

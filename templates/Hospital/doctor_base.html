@@ -34,9 +34,14 @@
        Social section
     -----------------------------------------*/
     footer {
-      padding: 0px 0px 0px 0px;
-      background-color: black;
-      margin: 0px;
+      border-top: 1px solid #333;
+        background-color: #bbccdd;
+        bottom: 0;
+        left: 0;
+        height: 60px;
+        position: fixed;
+        width: 100%;
+        color: #006b1b;
     }
 
 
@@ -283,9 +288,9 @@
       <h2>{{request.user.first_name}}</h2>
     </header>
     <ul>
-      <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/doctor-dashboard"><span>Dashboard</span></a> </li>
-      <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/doctor-patient"><span>Patient</span></a></li>
-      <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/doctor-appointment"><span>Appointments</span></a></li>
+      <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/doctor-dashboard"><span>Gerenciamento</span></a> </li>
+      <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/doctor-patient"><span><Pacientes>Pacientes</Pacientes></span></a></li>
+      <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/doctor-appointment"><span>Agendamentos</span></a></li>
     </ul>
   </nav>
   <main>
